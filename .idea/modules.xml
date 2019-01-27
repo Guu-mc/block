@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/block.iml" filepath="$PROJECT_DIR$/block.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-commom/block-commom.iml" filepath="$PROJECT_DIR$/block-commom/block-commom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-confine/block-confine.iml" filepath="$PROJECT_DIR$/block-confine/block-confine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-constant/block-constant.iml" filepath="$PROJECT_DIR$/block-constant/block-constant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-dao/block-dao.iml" filepath="$PROJECT_DIR$/block-dao/block-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-exception/block-exception.iml" filepath="$PROJECT_DIR$/block-exception/block-exception.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-file-interface/block-file-interface.iml" filepath="$PROJECT_DIR$/block-file-interface/block-file-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-file-service/block-file-service.iml" filepath="$PROJECT_DIR$/block-file-service/block-file-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-img-file-web/block-img-file-web.iml" filepath="$PROJECT_DIR$/block-img-file-web/block-img-file-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-interface/block-interface.iml" filepath="$PROJECT_DIR$/block-interface/block-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-pojo/block-pojo.iml" filepath="$PROJECT_DIR$/block-pojo/block-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-redis-interface/block-redis-interface.iml" filepath="$PROJECT_DIR$/block-redis-interface/block-redis-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-redis-service/block-redis-service.iml" filepath="$PROJECT_DIR$/block-redis-service/block-redis-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-security-service-commom/block-security-service-commom.iml" filepath="$PROJECT_DIR$/block-security-service-commom/block-security-service-commom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-service/block-service.iml" filepath="$PROJECT_DIR$/block-service/block-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-sso-interface/block-sso-interface.iml" filepath="$PROJECT_DIR$/block-sso-interface/block-sso-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-sso-service/block-sso-service.iml" filepath="$PROJECT_DIR$/block-sso-service/block-sso-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-web/block-web.iml" filepath="$PROJECT_DIR$/block-web/block-web.iml" />
+    </modules>
+  </component>
+</project>

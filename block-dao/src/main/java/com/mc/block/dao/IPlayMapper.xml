@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mc.block.dao.IPlayMapper">
+    <select id="selectList" resultType="com.mc.block.pojo.PlayInfo" parameterType="com.mc.block.pojo.PlayInfo">
+        select * from play_info
+    </select>
+
+    <select id="selectRandom" resultType="com.mc.block.pojo.PlayInfo" parameterType="int">
+        select * from play_info order by rand() LIMIT #{size}
+    </select>
+</mapper>
