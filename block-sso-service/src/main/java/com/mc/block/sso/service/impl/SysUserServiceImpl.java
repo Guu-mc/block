@@ -2,13 +2,16 @@ package com.mc.block.sso.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.mc.block.dao.sys.SysUserMapper;
-import com.mc.block.pojo.sys.SysRole;
-import com.mc.block.pojo.sys.SysRoleUser;
-import com.mc.block.pojo.sys.SysUser;
+import com.mc.block.pojo.bo.AuthorityBo;
+import com.mc.block.pojo.sys.*;
 import com.mc.block.pojo.vo.SysUserVo;
 import com.mc.block.sso.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +22,32 @@ public class SysUserServiceImpl implements ISysUserService {
     private ISysRoleUserService sysRoleUserService;
     @Autowired
     private ISysRoleService sysRoleService;
+    @Autowired
+    private ITokenService tokenService;
+    @Autowired
+    private ISysPermissionRoleService sysPermissionRoleService;
+    @Autowired
+    private ISysPermissionService sysPermissionService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+    @Override
+    public String userLogin(String username, String password) throws Exception {
+        SysUser sysUser = sysUserMapper.findByUsername(username);
+        if(sysUser == null || !bCryptPasswordEncoder.matches(password, sysUser.getPassword())){
+            throw new Exception("用户不存在或密码有误");
+        }
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        List<SysRoleUser> sysRoleUsers = sysRoleUserService.findBySysUserId(sysUser.getId());
+        for (SysRoleUser sysRoleUser : sysRoleUsers) {
+            SysRole sysRole = sysRoleService.findById(sysRoleUser.getSysRoleId());
+            List<SysPermissionRole> sysPermissionRoles = sysPermissionRoleService.findBySysRoleId(sysRole.getId());
+            for (SysPermissionRole sysPermissionRole : sysPermissionRoles) {
+                SysPermission sysPermission = sysPermissionService.findById(sysPermissionRole.getSysPermissionId());
+                grantedAuthorities.add(new AuthorityBo(sysRole.getName(), sysPermission.getUrl(), sysPermission.getMethod()));
+            }
+        }
+        return tokenService.generateToken(new User(sysUser.getUsername(), sysUser.getPassword(), grantedAuthorities));
+    }
 
     @Override
     public SysUser findByUsername(String s) {

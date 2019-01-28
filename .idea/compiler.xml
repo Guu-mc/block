@@ -22,6 +22,7 @@
         <module name="block-service" />
         <module name="block-sso-interface" />
         <module name="block-sso-service" />
+        <module name="block-sso-web" />
         <module name="block-web" />
       </profile>
     </annotationProcessing>
@@ -37,12 +38,13 @@
       <module name="block-img-file-web" target="1.8" />
       <module name="block-interface" target="1.7" />
       <module name="block-pojo" target="1.7" />
-      <module name="block-redis-interface" target="1.7" />
+      <module name="block-redis-interface" target="8" />
       <module name="block-redis-service" target="1.8" />
       <module name="block-security-service-commom" target="1.7" />
       <module name="block-service" target="1.8" />
       <module name="block-sso-interface" target="1.7" />
       <module name="block-sso-service" target="1.8" />
+      <module name="block-sso-web" target="1.8" />
       <module name="block-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -53,6 +55,7 @@
       <module name="block-redis-service" options="-parameters" />
       <module name="block-service" options="-parameters" />
       <module name="block-sso-service" options="-parameters" />
+      <module name="block-sso-web" options="-parameters" />
       <module name="block-web" options="-parameters" />
     </option>
   </component>

@@ -9,6 +9,10 @@ import org.springframework.validation.ObjectError;
 public class ResultParamException extends RuntimeException{
     private String message;
 
+    public ResultParamException(String message){
+        this.message = message;
+    }
+
     public ResultParamException(BindingResult errors){
         for (ObjectError objectError : errors.getAllErrors()) {
             Object[] arguments = objectError.getArguments();

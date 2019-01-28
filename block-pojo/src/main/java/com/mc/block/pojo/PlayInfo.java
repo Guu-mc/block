@@ -1,7 +1,7 @@
 package com.mc.block.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mc.orange.mmsql.annotations.MAssociate;
+import com.mc.orange.mmsql.annotations.MIgnore;
 import com.mc.orange.mmsql.annotations.MTable;
 
 import java.io.Serializable;
@@ -16,7 +16,7 @@ public class PlayInfo implements Serializable {
     private String video;
     @JsonIgnore
     private String originalVideo;
-    @MAssociate(select = "gg")
+    @MIgnore
     private ArrayList<Sha1> sha1;
 
     public Integer getId() {

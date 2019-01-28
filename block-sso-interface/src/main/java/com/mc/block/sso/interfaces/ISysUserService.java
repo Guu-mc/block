@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ISysUserService {
 
+    String userLogin(String username, String password) throws Exception;
+
     SysUser findByUsername(String s);
 
     SysUser findOne(SysUser sysUser);

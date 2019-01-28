@@ -13,7 +13,6 @@ public interface TFileInfoServiceMapper {
     int insert(TFileInfo tFileInfo);
     @MUpdate
     int update(TFileInfo tFileInfo);
-
     @MSelect
     TFileInfo findBySha1(@Param("sha1") String sha1);
 }

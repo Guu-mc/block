@@ -27,7 +27,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:2.0.1.Final" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.7" level="project" />
-    <orderEntry type="library" name="Maven: com.mc.orange:mmsql:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.mc.orange:mmsql:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-loader:2.1.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib:3.2.9" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:7.0" level="project" />

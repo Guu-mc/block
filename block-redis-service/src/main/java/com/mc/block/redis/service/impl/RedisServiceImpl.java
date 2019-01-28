@@ -50,6 +50,15 @@ public class RedisServiceImpl implements IRedisService {
 
     // =============================common============================
     /**
+     * 模糊查询key
+     * @param key 键
+     * @return
+     */
+    @Override
+    public Set<String> keys(String key) {
+        return redisTemplate.keys(key);
+    }
+    /**
      * 指定缓存失效时间
      * @param key 键
      * @param time 时间(秒)
@@ -558,4 +567,5 @@ public class RedisServiceImpl implements IRedisService {
             return 0;
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package com.mc.block.sso.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.mc.block.redis.interfaces.IRedisService;
 import com.mc.block.sso.interfaces.ITokenService;
 import io.jsonwebtoken.Jwts;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class TokenServiceImpl implements ITokenService {
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";

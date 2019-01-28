@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 public interface IRedisService {
+    Set<String> keys(String key);
+
     boolean expire(String key, long time);
 
     long getExpire(String key);
