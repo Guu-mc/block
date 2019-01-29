@@ -1,11 +1,11 @@
 package com.mc.block.security.sso.commom.configure;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.mc.block.commom.StringUtils;
+import com.mc.block.pojo.bo.UserBo;
+import com.mc.block.security.sso.commom.WebSecurityConfig;
 import com.mc.block.sso.interfaces.ITokenService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 import javax.servlet.FilterChain;
@@ -19,9 +19,6 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     private static final String tokenHeader = "Authorization";
     private static final String tokenHead = "Bearer ";
 
-    @Reference
-    private ITokenService tokenService;
-
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -34,9 +31,9 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
             //如果header中存在token，则覆盖掉url中的token
             authToken = authHeader.substring(tokenHead.length()); // "Bearer "之后的内容
         }
-
+        ITokenService tokenService = WebSecurityConfig.getTokenService();
         if (StringUtils.isNotBlank(authToken)) {
-            User user = tokenService.getUserFromToken(authToken);
+            UserBo user = tokenService.getUserFromToken(authToken);
             if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
                 //检查token是否有效

@@ -2,15 +2,15 @@ package com.mc.block.sso.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.mc.block.commom.ClassUtils;
+import com.mc.block.pojo.bo.UserBo;
 import com.mc.block.redis.interfaces.IRedisService;
 import com.mc.block.sso.interfaces.ITokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,32 +34,34 @@ public class TokenServiceImpl implements ITokenService {
     }
 
     @Override
-    public User getUserFromToken(String token) {
+    public UserBo getUserFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
         String username = (String) claims.get(CLAIM_KEY_USERNAME);
-        String realToken = (String) redisService.get(CLAIM_KEY_USERNAME+"::"+username);
-        if(token.equals(realToken) && (claims = getClaimsFromToken(realToken))!=null){
-            return new User(username, null, claims.get(CLAIM_KEY_ROLES, Collection.class));
+        Map<String, Object> map = (Map<String, Object>) ClassUtils.byteToObject((byte[]) redisService.get(CLAIM_KEY_USERNAME + "::" + username));
+        if(token.equals(map.get("token"))){
+            return (UserBo) map.get("user");
         }
         return null;
     }
 
     @Override
-    public String generateToken(User userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-        claims.put(CLAIM_KEY_CREATED, new Date());
-        claims.put(CLAIM_KEY_ROLES, userDetails.getAuthorities());
-        String token = generateToken(claims);
-        redisService.set(CLAIM_KEY_USERNAME+"::"+userDetails.getUsername(), token, EXPIRATION);
+    public String generateToken(UserBo userDetails) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        map.put(CLAIM_KEY_CREATED, new Date());
+        map.put(CLAIM_KEY_ROLES, userDetails.getAuthorities());
+        String token = generateToken(map);
+        map.clear();
+        map.put("token", token);
+        map.put("user", userDetails);
+        redisService.set(CLAIM_KEY_USERNAME+"::"+userDetails.getUsername(), ClassUtils.objectToByte(map), EXPIRATION);
         return token;
     }
 
     @Override
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
-        User fromToken = getUserFromToken(token);
-        return fromToken!=null && fromToken.getUsername().equals(user.getUsername());
+        UserBo fromToken = getUserFromToken(token);
+        return fromToken!=null && fromToken.getUsername().equals(userDetails.getUsername());
     }
 
     private static Claims getClaimsFromToken(String token) {

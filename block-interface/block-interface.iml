@@ -42,6 +42,5 @@
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.23.1-GA" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="module" module-name="block-exception" />
-    <orderEntry type="module" module-name="block-confine" />
   </component>
 </module>

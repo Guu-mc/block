@@ -44,18 +44,20 @@ public class ClassUtils {
      */
     public static byte[] objectToByte(Object obj) {
         byte[] bytes = null;
-        ByteArrayOutputStream bo = null;
-        ObjectOutputStream oo = null;
-        try {
-            bo = new ByteArrayOutputStream();
-            oo = new ObjectOutputStream(bo);
-            oo.writeObject(obj);
-            bytes = bo.toByteArray();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            close(bo);
-            close(oo);
+        if(obj!=null){
+            ByteArrayOutputStream bo = null;
+            ObjectOutputStream oo = null;
+            try {
+                bo = new ByteArrayOutputStream();
+                oo = new ObjectOutputStream(bo);
+                oo.writeObject(obj);
+                bytes = bo.toByteArray();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                close(bo);
+                close(oo);
+            }
         }
         return bytes;
     }
@@ -67,17 +69,19 @@ public class ClassUtils {
      */
     public static Object byteToObject(byte[] bytes) {
         Object obj = null;
-        ByteArrayInputStream bi = null;
-        ObjectInputStream oi = null;
-        try {
-            bi = new ByteArrayInputStream(bytes);
-            oi = new ObjectInputStream(bi);
-            obj = oi.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            close(bi);
-            close(oi);
+        if(bytes!=null){
+            ByteArrayInputStream bi = null;
+            ObjectInputStream oi = null;
+            try {
+                bi = new ByteArrayInputStream(bytes);
+                oi = new ObjectInputStream(bi);
+                obj = oi.readObject();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                close(bi);
+                close(oi);
+            }
         }
         return obj;
     }

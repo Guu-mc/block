@@ -3,12 +3,12 @@ package com.mc.block.sso.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.mc.block.dao.sys.SysUserMapper;
 import com.mc.block.pojo.bo.AuthorityBo;
+import com.mc.block.pojo.bo.UserBo;
 import com.mc.block.pojo.sys.*;
 import com.mc.block.pojo.vo.SysUserVo;
 import com.mc.block.sso.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class SysUserServiceImpl implements ISysUserService {
                 grantedAuthorities.add(new AuthorityBo(sysRole.getName(), sysPermission.getUrl(), sysPermission.getMethod()));
             }
         }
-        return tokenService.generateToken(new User(sysUser.getUsername(), sysUser.getPassword(), grantedAuthorities));
+        return tokenService.generateToken(new UserBo(sysUser.getUsername(), sysUser.getPassword(), grantedAuthorities));
     }
 
     @Override

@@ -87,6 +87,11 @@
 
         <dependency>
             <groupId>com.mc</groupId>
+            <artifactId>block-constant</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mc</groupId>
             <artifactId>block-redis-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -109,11 +114,27 @@
             <groupId>com.mc</groupId>
             <artifactId>block-pojo</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>asm</artifactId>
+                    <groupId>org.ow2.asm</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>javassist</artifactId>
+                    <groupId>org.javassist</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-properties-migrator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mc</groupId>
+            <artifactId>block-confine</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
