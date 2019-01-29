@@ -1,4 +1,4 @@
-//package com.mc.block.play.sims.service.redis.conifg;
+//package com.mc.block.play.sims.configure.redis.conifg;
 //
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.cache.CacheManager;

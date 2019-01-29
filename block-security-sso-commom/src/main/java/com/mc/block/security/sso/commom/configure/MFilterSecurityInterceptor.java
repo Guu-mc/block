@@ -1,4 +1,4 @@
-package com.mc.block.security.service.commom.service;
+package com.mc.block.security.sso.commom.configure;
 
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;

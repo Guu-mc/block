@@ -7,6 +7,11 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 public @interface CacheEvict {
+    String value() default "";
+    /**
+     * el 表达式
+     * @return
+     */
     String key() default "";
     boolean allEntries() default false;
 }

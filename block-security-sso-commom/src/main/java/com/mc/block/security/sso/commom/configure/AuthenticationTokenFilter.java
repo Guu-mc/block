@@ -1,4 +1,4 @@
-package com.mc.block.security.service.commom.service;
+package com.mc.block.security.sso.commom.configure;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.mc.block.commom.StringUtils;

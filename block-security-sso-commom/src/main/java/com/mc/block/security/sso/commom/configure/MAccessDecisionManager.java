@@ -1,4 +1,4 @@
-package com.mc.block.security.service.commom.service;
+package com.mc.block.security.sso.commom.configure;
 
 import com.mc.block.pojo.bo.AuthorityBo;
 import org.springframework.security.access.AccessDecisionManager;

@@ -54,5 +54,9 @@
     <orderEntry type="library" name="Maven: javax.annotation:javax.annotation-api:1.3.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.yaml:snakeyaml:1.23" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.2" level="project" />
+    <orderEntry type="module" module-name="block-commom" />
+    <orderEntry type="module" module-name="block-confine" />
+    <orderEntry type="module" module-name="block-constant" />
+    <orderEntry type="module" module-name="block-exception" />
   </component>
 </module>

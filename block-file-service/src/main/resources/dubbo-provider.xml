@@ -2,8 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
-    <dubbo:application name="block-service-file"></dubbo:application>
+    <dubbo:application name="block-file-service">
+        <dubbo:parameter key="qos.port" value="22222"/>
+    </dubbo:application>
     <dubbo:registry protocol="zookeeper" port="2181" address="47.106.126.174"></dubbo:registry>
-    <dubbo:protocol port="20881" />
+    <dubbo:protocol port="20882"/>
     <dubbo:annotation package="com.mc.block.file.service.impl"></dubbo:annotation>
 </beans>

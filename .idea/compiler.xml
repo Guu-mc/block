@@ -18,7 +18,7 @@
         <module name="block-pojo" />
         <module name="block-redis-interface" />
         <module name="block-redis-service" />
-        <module name="block-security-service-commom" />
+        <module name="block-security-sso-commom" />
         <module name="block-service" />
         <module name="block-sso-interface" />
         <module name="block-sso-service" />
@@ -40,7 +40,7 @@
       <module name="block-pojo" target="1.7" />
       <module name="block-redis-interface" target="8" />
       <module name="block-redis-service" target="1.8" />
-      <module name="block-security-service-commom" target="1.7" />
+      <module name="block-security-sso-commom" target="1.7" />
       <module name="block-service" target="1.8" />
       <module name="block-sso-interface" target="1.7" />
       <module name="block-sso-service" target="1.8" />

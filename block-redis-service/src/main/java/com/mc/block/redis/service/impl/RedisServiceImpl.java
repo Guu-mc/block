@@ -1,14 +1,10 @@
 package com.mc.block.redis.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mc.block.redis.interfaces.IRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.CollectionUtils;
 
@@ -31,20 +27,16 @@ public class RedisServiceImpl implements IRedisService {
     public void init(){
         redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        StringRedisSerializer sSerializer = new StringRedisSerializer();
+//        JdkSerializationRedisSerializer jSerializer = new JdkSerializationRedisSerializer();
         // key采用String的序列化方式
-        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setKeySerializer(sSerializer);
         // hash的key也采用String的序列化方式
-        redisTemplate.setHashKeySerializer(stringRedisSerializer);
-        // value序列化方式采用jackson
-        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
-        // hash的value序列化方式采用jackson
-        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setHashKeySerializer(sSerializer);
+//        // value序列化方式采用jackson
+//        redisTemplate.setValueSerializer(jSerializer);
+//        // hash的value序列化方式采用jackson
+//        redisTemplate.setHashValueSerializer(jSerializer);
         redisTemplate.afterPropertiesSet();
     }
 

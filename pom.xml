@@ -20,9 +20,10 @@
     <module>block-file-interface</module>
     <module>block-file-service</module>
     <module>block-img-file-web</module>
-    <module>block-security-service-commom</module>
+    <module>block-security-sso-commom</module>
     <module>block-sso-interface</module>
     <module>block-sso-service</module>
+    <module>block-sso-web</module>
     <module>block-redis-interface</module>
     <module>block-redis-service</module>
   </modules>

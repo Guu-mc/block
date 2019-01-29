@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>block-security-service-commom</artifactId>
+    <artifactId>block-security-sso-commom</artifactId>
 
-    <name>block-security-service-commom</name>
+    <name>block-security-sso-commom</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 

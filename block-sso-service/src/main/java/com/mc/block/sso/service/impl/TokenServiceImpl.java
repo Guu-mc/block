@@ -1,13 +1,16 @@
 package com.mc.block.sso.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.mc.block.redis.interfaces.IRedisService;
 import com.mc.block.sso.interfaces.ITokenService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +35,13 @@ public class TokenServiceImpl implements ITokenService {
 
     @Override
     public User getUserFromToken(String token) {
-        return (User) redisService.get(token);
+        Claims claims = getClaimsFromToken(token);
+        String username = (String) claims.get(CLAIM_KEY_USERNAME);
+        String realToken = (String) redisService.get(CLAIM_KEY_USERNAME+"::"+username);
+        if(token.equals(realToken) && (claims = getClaimsFromToken(realToken))!=null){
+            return new User(username, null, claims.get(CLAIM_KEY_ROLES, Collection.class));
+        }
+        return null;
     }
 
     @Override
@@ -42,7 +51,7 @@ public class TokenServiceImpl implements ITokenService {
         claims.put(CLAIM_KEY_CREATED, new Date());
         claims.put(CLAIM_KEY_ROLES, userDetails.getAuthorities());
         String token = generateToken(claims);
-        redisService.set(token, userDetails, EXPIRATION);
+        redisService.set(CLAIM_KEY_USERNAME+"::"+userDetails.getUsername(), token, EXPIRATION);
         return token;
     }
 
@@ -51,5 +60,15 @@ public class TokenServiceImpl implements ITokenService {
         User user = (User) userDetails;
         User fromToken = getUserFromToken(token);
         return fromToken!=null && fromToken.getUsername().equals(user.getUsername());
+    }
+
+    private static Claims getClaimsFromToken(String token) {
+        Claims claims;
+        try {
+            claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
+        } catch (Exception e) {
+            claims = null;
+        }
+        return claims;
     }
 }

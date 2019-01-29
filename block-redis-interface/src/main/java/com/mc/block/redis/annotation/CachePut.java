@@ -7,6 +7,12 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 public @interface CachePut {
+    String value() default "";
+
+    /**
+     * el 表达式
+     * @return
+     */
     String key() default "";
     long timeout() default 432000000;
 }
