@@ -25,8 +25,52 @@ public class UserController {
         return ResultUtil.success(sysUserService.userLogin(username, password));
     }
 
+    @PostMapping("logout")
+    public Result logout(@RequestAttribute("username") String username) {
+        sysUserService.logout(username);
+        return ResultUtil.success();
+    }
+
     @GetMapping("info")
     public Result info(@RequestAttribute("username") String username){
         return ResultUtil.success(sysUserService.userInfo(username));
     }
+
+    @GetMapping("messageCount")
+    public Result messageCount(@RequestAttribute("username") String username){
+        return ResultUtil.success(sysUserService.messageCount(username));
+    }
+
+    @GetMapping("messageInit")
+    public Result messageInit(@RequestAttribute("username") String username){
+        return ResultUtil.success(sysUserService.messageInit(username));
+    }
+
+    @GetMapping("messageContent")
+    public Result messageContent(@RequestAttribute("username") String username, Integer id){
+        if(id == null){
+            throw new ResultParamException("id不能为空");
+        }
+        return ResultUtil.success(sysUserService.messageContent(username, id));
+    }
+
+    @PostMapping("messageRemoveRead")
+    public Result messageRemoveRead(@RequestAttribute("username") String username, Integer id) throws Exception {
+        if(id == null){
+            throw new ResultParamException("id不能为空");
+        }
+        sysUserService.messageRemoveRead(username, id);
+        return ResultUtil.success();
+    }
+
+    @PostMapping("messageRestore")
+    public Result messageRestore(@RequestAttribute("username") String username, Integer id) throws Exception {
+        if(id == null){
+            throw new ResultParamException("id不能为空");
+        }
+        sysUserService.messageRestore(username, id);
+        return ResultUtil.success();
+    }
+
+
 }

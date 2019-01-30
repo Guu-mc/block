@@ -4,5 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
     <dubbo:application name="block-sso-web"></dubbo:application>
     <dubbo:registry protocol="zookeeper" address="47.106.126.174" port="2181"></dubbo:registry>
+    <dubbo:protocol port="20881"></dubbo:protocol>
     <dubbo:annotation package="com.mc.block.sso.web.controller"></dubbo:annotation>
 </beans>

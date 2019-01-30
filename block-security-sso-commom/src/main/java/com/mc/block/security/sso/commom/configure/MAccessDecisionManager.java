@@ -1,7 +1,7 @@
 package com.mc.block.security.sso.commom.configure;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.mc.block.pojo.bo.AuthorityBo;
-import com.mc.block.security.sso.commom.WebSecurityConfig;
 import com.mc.block.sso.interfaces.ISysUserService;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -11,11 +11,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 
+@Component
 public class MAccessDecisionManager implements AccessDecisionManager {
+
+    @Reference
+    private ISysUserService sysUserService;
 
     //decide 方法是判定是否拥有权限的决策方法
     @Override
@@ -29,7 +35,6 @@ public class MAccessDecisionManager implements AccessDecisionManager {
                 }
             } else if (ga.getAuthority().equals("ROLE_ANONYMOUS")) {
                 //获取未登录用户权限
-                ISysUserService sysUserService = WebSecurityConfig.getSysUserService();
                 List<GrantedAuthority> grantedAuthorities = sysUserService.roleAnonymousUser();
                 for (GrantedAuthority grantedAuthority : grantedAuthorities) {
                     if(checkAuthorityBo(grantedAuthority, request)){

@@ -1,20 +1,31 @@
 package com.mc.block.security.sso.commom.configure;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.*;
 import java.io.IOException;
 
+@Component
+@Import({MInvocationSecurityMetadataSourceService.class, MAccessDecisionManager.class})
 public class MFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
-    private FilterInvocationSecurityMetadataSource securityMetadataSource = new MInvocationSecurityMetadataSourceService();
+    @Autowired
+    private FilterInvocationSecurityMetadataSource securityMetadataSource;
+    @Autowired
+    private AccessDecisionManager accessDecisionManager;
 
-    {
-        super.setAccessDecisionManager(new MAccessDecisionManager());
+    @PostConstruct
+    private void init(){
+        super.setAccessDecisionManager(accessDecisionManager);
     }
 
     @Override

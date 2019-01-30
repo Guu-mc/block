@@ -1,11 +1,9 @@
 package com.mc.block.security.sso.commom;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.mc.block.security.sso.commom.configure.AuthenticationTokenFilter;
 import com.mc.block.security.sso.commom.configure.MFilterSecurityInterceptor;
-import com.mc.block.sso.interfaces.ISysUserService;
-import com.mc.block.sso.interfaces.ITokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,34 +15,15 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import javax.annotation.PostConstruct;
 
 @EnableWebSecurity
+@Import({AuthenticationTokenFilter.class, MFilterSecurityInterceptor.class})
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private MFilterSecurityInterceptor filterSecurityInterceptor = new MFilterSecurityInterceptor();
-    private AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter();
+    @Autowired
+    private MFilterSecurityInterceptor filterSecurityInterceptor;
+    @Autowired
+    private AuthenticationTokenFilter authenticationTokenFilter;
     private static final String loginPage = "http://localhost:8080/login";
-
-    @Reference
-    private ITokenService tokenService;
-    private static ITokenService tokenService1;
-    @Reference
-    private ISysUserService sysUserService;
-    private static ISysUserService sysUserService1;
-
-    @PostConstruct
-    private void init(){
-        tokenService1 = tokenService;
-        sysUserService1 = sysUserService;
-    }
-
-    public static ITokenService getTokenService() {
-        return tokenService1;
-    }
-
-    public static ISysUserService getSysUserService() {
-        return sysUserService1;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

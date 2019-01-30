@@ -12,6 +12,7 @@ import java.util.List;
 public class SysPermissionRoleServiceImpl implements ISysPermissionRoleService {
     @Autowired
     private SysPermissionRoleMapper sysPermissionRoleMapper;
+
     @Override
     public List<SysPermissionRole> findBySysRoleId(Integer sysRoleId) {
         return sysPermissionRoleMapper.findBySysRoleId(sysRoleId);

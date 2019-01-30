@@ -1,12 +1,13 @@
 package com.mc.block.security.sso.commom.configure;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.mc.block.commom.StringUtils;
 import com.mc.block.pojo.bo.UserBo;
-import com.mc.block.security.sso.commom.WebSecurityConfig;
 import com.mc.block.sso.interfaces.ITokenService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -15,10 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
     private static final String tokenHeader = "Authorization";
     private static final String tokenHead = "Bearer ";
+    @Reference
+    private ITokenService tokenService;
 
     @Override
     protected void doFilterInternal(
@@ -34,7 +38,6 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         }
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         if (StringUtils.isNotBlank(authToken)) {
-            ITokenService tokenService = WebSecurityConfig.getTokenService();
             UserBo user = tokenService.getUserFromToken(authToken);
             if (user != null && authentication == null) {
 

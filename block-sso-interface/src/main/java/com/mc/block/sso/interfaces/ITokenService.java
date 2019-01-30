@@ -5,6 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface ITokenService {
     UserBo getUserFromToken(String token);
+
+    boolean removeToken(String username);
+
     String generateToken(UserBo userDetails);
     Boolean validateToken(String token, UserDetails userDetails);
 }

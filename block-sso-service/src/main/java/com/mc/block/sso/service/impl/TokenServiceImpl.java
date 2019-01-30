@@ -36,12 +36,28 @@ public class TokenServiceImpl implements ITokenService {
     @Override
     public UserBo getUserFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
-        String username = (String) claims.get(CLAIM_KEY_USERNAME);
-        Map<String, Object> map = (Map<String, Object>) ClassUtils.byteToObject((byte[]) redisService.get(CLAIM_KEY_USERNAME + "::" + username));
-        if(token.equals(map.get("token"))){
-            return (UserBo) map.get("user");
+        if(claims!=null){
+            String username = (String) claims.get(CLAIM_KEY_USERNAME);
+            Map<String, Object> map = (Map<String, Object>) ClassUtils.byteToObject((byte[]) redisService.get(CLAIM_KEY_USERNAME + "::" + username));
+            if(token.equals(map.get("token"))){
+                return (UserBo) map.get("user");
+            }
         }
         return null;
+    }
+
+    @Override
+    public boolean removeToken(String username) {
+        boolean b = false;
+        if(username != null){
+            try {
+                redisService.del(CLAIM_KEY_USERNAME+"::"+username);
+                b = true;
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return b;
     }
 
     @Override

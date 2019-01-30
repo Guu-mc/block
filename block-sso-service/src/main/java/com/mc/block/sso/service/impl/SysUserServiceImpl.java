@@ -1,10 +1,12 @@
 package com.mc.block.sso.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.mc.block.constant.pojo.SysUserMessageConstant;
 import com.mc.block.dao.sys.SysUserMapper;
 import com.mc.block.pojo.bo.AuthorityBo;
 import com.mc.block.pojo.bo.UserBo;
 import com.mc.block.pojo.sys.*;
+import com.mc.block.pojo.vo.SysUserMessageVo;
 import com.mc.block.pojo.vo.SysUserVo;
 import com.mc.block.sso.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class SysUserServiceImpl implements ISysUserService {
     private ISysPermissionRoleService sysPermissionRoleService;
     @Autowired
     private ISysPermissionService sysPermissionService;
+    @Autowired
+    private ISysUserMessageService sysUserMessageService;
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
@@ -89,5 +93,45 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public List<SysUser> findAll() {
         return sysUserMapper.findAll();
+    }
+
+    @Override
+    public void logout(String username) {
+        tokenService.removeToken(username);
+    }
+
+    @Override
+    public int messageCount(String username) {
+        SysUser sysUser = sysUserMapper.findByUsername(username);
+        return sysUserMessageService.findCountByUserIdAndStatus(sysUser.getId(), SysUserMessageConstant.STATUS_UNREAD);
+    }
+
+    @Override
+    public SysUserMessageVo messageInit(String username) {
+        SysUser sysUser = sysUserMapper.findByUsername(username);
+        SysUserMessageVo sysUserMessageVo = new SysUserMessageVo();
+        sysUserMessageVo
+                .setUnreadList(sysUserMessageService.findByUserIdAndStatus(sysUser.getId(), SysUserMessageConstant.STATUS_UNREAD))
+                .setReadedList(sysUserMessageService.findByUserIdAndStatus(sysUser.getId(), SysUserMessageConstant.STATUS_READ))
+                .setTrashList(sysUserMessageService.findByUserIdAndStatus(sysUser.getId(), SysUserMessageConstant.STATUS_TAG_DELETION));
+        return sysUserMessageVo;
+    }
+
+    @Override
+    public String messageContent(String username, Integer id) {
+        SysUser sysUser = sysUserMapper.findByUsername(username);
+        return sysUserMessageService.messageContent(id, sysUser.getId());
+    }
+
+    @Override
+    public void messageRemoveRead(String username, Integer id) throws Exception {
+        SysUser sysUser = sysUserMapper.findByUsername(username);
+        sysUserMessageService.removeRead(id, sysUser.getId());
+    }
+
+    @Override
+    public void messageRestore(String username, Integer id) throws Exception {
+        SysUser sysUser = sysUserMapper.findByUsername(username);
+        sysUserMessageService.restore(id, sysUser.getId());
     }
 }

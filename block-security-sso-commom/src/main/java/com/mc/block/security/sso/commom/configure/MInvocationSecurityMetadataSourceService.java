@@ -3,9 +3,12 @@ package com.mc.block.security.sso.commom.configure;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Component
 public class MInvocationSecurityMetadataSourceService  implements
         FilterInvocationSecurityMetadataSource {
 
