@@ -40,11 +40,7 @@ public class SysUserServiceImpl implements ISysUserService {
         List<SysRoleUser> sysRoleUsers = sysRoleUserService.findBySysUserId(sysUser.getId());
         for (SysRoleUser sysRoleUser : sysRoleUsers) {
             SysRole sysRole = sysRoleService.findById(sysRoleUser.getSysRoleId());
-            List<SysPermissionRole> sysPermissionRoles = sysPermissionRoleService.findBySysRoleId(sysRole.getId());
-            for (SysPermissionRole sysPermissionRole : sysPermissionRoles) {
-                SysPermission sysPermission = sysPermissionService.findById(sysPermissionRole.getSysPermissionId());
-                grantedAuthorities.add(new AuthorityBo(sysRole.getName(), sysPermission.getUrl(), sysPermission.getMethod()));
-            }
+            grantedAuthorities.addAll(userGrantedAuthoritys(sysRole));
         }
         return tokenService.generateToken(new UserBo(sysUser.getUsername(), sysUser.getPassword(), grantedAuthorities));
     }
@@ -70,6 +66,24 @@ public class SysUserServiceImpl implements ISysUserService {
             sysUserVo.addRoles(sysRole.getName());
         });
         return sysUserVo;
+    }
+
+    @Override
+    public List<GrantedAuthority> roleAnonymousUser() {
+        SysRole sysRole = sysRoleService.findByName("ANONYMOUS");
+        return userGrantedAuthoritys(sysRole);
+    }
+
+    private List<GrantedAuthority> userGrantedAuthoritys(SysRole sysRole){
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        if(sysRole != null){
+            List<SysPermissionRole> sysPermissionRoles = sysPermissionRoleService.findBySysRoleId(sysRole.getId());
+            for (SysPermissionRole sysPermissionRole : sysPermissionRoles) {
+                SysPermission sysPermission = sysPermissionService.findById(sysPermissionRole.getSysPermissionId());
+                grantedAuthorities.add(new AuthorityBo(sysRole.getName(), sysPermission.getUrl(), sysPermission.getMethod()));
+            }
+        }
+        return grantedAuthorities;
     }
 
     @Override

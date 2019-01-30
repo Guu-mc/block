@@ -8,5 +8,8 @@ import org.apache.ibatis.annotations.Param;
 public interface SysRoleMapper {
     @MSelect
     @Cacheable
-    SysRole findById(@Param("id")Integer id);
+    SysRole findById(@Param("id") Integer id);
+    @MSelect
+    @Cacheable
+    SysRole findByName(@Param("name") String name);
 }

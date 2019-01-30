@@ -4,4 +4,6 @@ import com.mc.block.pojo.sys.SysRole;
 
 public interface ISysRoleService {
     SysRole findById(Integer id);
+
+    SysRole findByName(String name);
 }

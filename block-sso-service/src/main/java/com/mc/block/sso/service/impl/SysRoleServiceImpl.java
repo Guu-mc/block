@@ -14,4 +14,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
     public SysRole findById(Integer id) {
         return sysRoleMapper.findById(id);
     }
+
+    @Override
+    public SysRole findByName(String name) {
+        return sysRoleMapper.findByName(name);
+    }
 }

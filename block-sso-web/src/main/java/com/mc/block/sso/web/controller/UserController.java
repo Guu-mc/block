@@ -6,9 +6,7 @@ import com.mc.block.commom.StringUtils;
 import com.mc.block.confine.result.Result;
 import com.mc.block.exception.ResultParamException;
 import com.mc.block.sso.interfaces.ISysUserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
@@ -25,5 +23,10 @@ public class UserController {
             throw new ResultParamException("密码不能为空");
         }
         return ResultUtil.success(sysUserService.userLogin(username, password));
+    }
+
+    @GetMapping("info")
+    public Result info(@RequestAttribute("username") String username){
+        return ResultUtil.success(sysUserService.userInfo(username));
     }
 }

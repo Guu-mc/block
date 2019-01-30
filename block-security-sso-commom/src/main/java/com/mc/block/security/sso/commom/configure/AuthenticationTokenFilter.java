@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,20 +32,23 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
             //如果header中存在token，则覆盖掉url中的token
             authToken = authHeader.substring(tokenHead.length()); // "Bearer "之后的内容
         }
-        ITokenService tokenService = WebSecurityConfig.getTokenService();
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         if (StringUtils.isNotBlank(authToken)) {
+            ITokenService tokenService = WebSecurityConfig.getTokenService();
             UserBo user = tokenService.getUserFromToken(authToken);
-            if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (user != null && authentication == null) {
 
                 //检查token是否有效
                 if (tokenService.validateToken(authToken, user)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    request.setAttribute("username", user.getUsername());
                     //设置用户登录状态
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
+        }
+        if(authentication != null){
+            request.setAttribute("username", authentication.getName());
         }
         chain.doFilter(request, response);
     }
