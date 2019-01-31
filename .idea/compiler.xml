@@ -6,6 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="block-admin-interface" />
+        <module name="block-admin-service" />
+        <module name="block-admin-web" />
         <module name="block-commom" />
         <module name="block-confine" />
         <module name="block-constant" />
@@ -14,20 +17,20 @@
         <module name="block-file-interface" />
         <module name="block-file-service" />
         <module name="block-img-file-web" />
-        <module name="block-interface" />
         <module name="block-pojo" />
         <module name="block-redis-interface" />
         <module name="block-redis-service" />
         <module name="block-security-sso-commom" />
-        <module name="block-service" />
         <module name="block-sso-interface" />
         <module name="block-sso-service" />
         <module name="block-sso-web" />
-        <module name="block-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="block" target="1.5" />
+      <module name="block-admin-interface" target="1.7" />
+      <module name="block-admin-service" target="1.8" />
+      <module name="block-admin-web" target="1.8" />
       <module name="block-commom" target="1.7" />
       <module name="block-confine" target="1.7" />
       <module name="block-constant" target="1.7" />
@@ -36,27 +39,24 @@
       <module name="block-file-interface" target="1.7" />
       <module name="block-file-service" target="1.8" />
       <module name="block-img-file-web" target="1.8" />
-      <module name="block-interface" target="1.7" />
       <module name="block-pojo" target="1.7" />
       <module name="block-redis-interface" target="8" />
       <module name="block-redis-service" target="1.8" />
       <module name="block-security-sso-commom" target="1.7" />
-      <module name="block-service" target="1.8" />
       <module name="block-sso-interface" target="1.7" />
       <module name="block-sso-service" target="1.8" />
       <module name="block-sso-web" target="1.8" />
-      <module name="block-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="block-admin-service" options="-parameters" />
+      <module name="block-admin-web" options="-parameters" />
       <module name="block-file-service" options="-parameters" />
       <module name="block-img-file-web" options="-parameters" />
       <module name="block-redis-service" options="-parameters" />
-      <module name="block-service" options="-parameters" />
       <module name="block-sso-service" options="-parameters" />
       <module name="block-sso-web" options="-parameters" />
-      <module name="block-web" options="-parameters" />
     </option>
   </component>
 </project>

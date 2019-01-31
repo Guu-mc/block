@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 public interface FileAttributesMapper {
     @MInsert
     @Options(useGeneratedKeys = true)
-    @CacheEvict(allEntries = true)
+    @CacheEvict
     int insert(FileAttributes fileAttributes);
     @MSelect
     @Cacheable

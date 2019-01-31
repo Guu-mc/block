@@ -20,6 +20,6 @@ public interface SysUserMessageMapper {
     @Cacheable
     SysUserMessage findByIdAndUserId(@Param("id")Integer id, @Param("userId")Integer userId);
     @MUpdate
-    @CacheEvict(allEntries = true)
-    int update(SysUserMessage sysUserMessage);
+    @CacheEvict
+    void update(SysUserMessage sysUserMessage);
 }

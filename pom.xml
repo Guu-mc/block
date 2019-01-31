@@ -8,15 +8,12 @@
   <artifactId>block</artifactId>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>block-interface</module>
     <module>block-commom</module>
     <module>block-confine</module>
     <module>block-constant</module>
     <module>block-dao</module>
     <module>block-exception</module>
     <module>block-pojo</module>
-    <module>block-web</module>
-    <module>block-service</module>
     <module>block-file-interface</module>
     <module>block-file-service</module>
     <module>block-img-file-web</module>
@@ -26,6 +23,9 @@
     <module>block-sso-web</module>
     <module>block-redis-interface</module>
     <module>block-redis-service</module>
+    <module>block-admin-interface</module>
+    <module>block-admin-service</module>
+    <module>block-admin-web</module>
   </modules>
   <packaging>pom</packaging>
 

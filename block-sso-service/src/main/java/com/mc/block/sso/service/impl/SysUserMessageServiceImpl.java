@@ -33,8 +33,10 @@ public class SysUserMessageServiceImpl implements ISysUserMessageService {
     public String messageContent(Integer id, Integer userId) {
         SysUserMessage sysUserMessage = sysUserMessageMapper.findByIdAndUserId(id, userId);
         if(sysUserMessage != null){
-            sysUserMessage.setStatus(SysUserMessageConstant.STATUS_READ);
-            sysUserMessageMapper.update(sysUserMessage);
+            if(SysUserMessageConstant.STATUS_UNREAD.equals(sysUserMessage.getStatus())){
+                sysUserMessage.setStatus(SysUserMessageConstant.STATUS_READ);
+                sysUserMessageMapper.update(sysUserMessage);
+            }
             return sysUserMessage.getContent();
         }
         return "";

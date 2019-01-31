@@ -7,11 +7,28 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 public @interface CacheEvict {
-    String value() default "";
+
     /**
-     * el 表达式
-     * @return
+     *
+     * @return cacheName 默认类全路径名
+     */
+    String value() default "";
+
+    /**
+     *
+     * @return keyGroup 默认方法名
+     */
+    String keyGroup() default "";
+
+    /**
+     *
+     * @return el 表达式 默认全参数
      */
     String key() default "";
-    boolean allEntries() default false;
+
+    /**
+     *
+     * @return allEntries 是否全清空（cacheName相同）， 否 （cacheName相同，keyGroup相同，key相同）
+     */
+    boolean allEntries() default true;
 }

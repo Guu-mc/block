@@ -1,6 +1,6 @@
 package com.mc.block.file.service;
 
-import com.mc.block.redis.annotation.ReidsCaching;
+import com.mc.block.redis.annotation.RedisCaching;
 import com.mc.orange.mmsql.annotations.MMsql;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("dubbo-provider.xml")
 @MapperScan("com.mc.block.dao")
 @MMsql(showSql = true)
-@ReidsCaching
+@RedisCaching
 public class BlockFileServiceApplication {
 
     public static void main(String[] args) throws InterruptedException {

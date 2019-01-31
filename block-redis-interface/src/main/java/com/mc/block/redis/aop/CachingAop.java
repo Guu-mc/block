@@ -28,7 +28,7 @@ public class CachingAop {
     @Around("@annotation(cacheable)")
     public Object cacheable(ProceedingJoinPoint po, Cacheable cacheable) throws Throwable {
         Object obj;
-        String key = getKey(cacheable.value(), po.toLongString(), cacheable.key(), po.getArgs());
+        String key = getKey(cacheable.value(), cacheable.keyGroup(), cacheable.key(), po.toLongString(), po.getArgs());
         if(redisService.hasKey(key)){
             byte[] bytes = (byte[]) redisService.get(key);
             obj = ClassUtils.byteToObject(bytes);
@@ -42,57 +42,65 @@ public class CachingAop {
 
     @AfterReturning(value = "@annotation(cachePut)", returning="retVal")
     public Object cachePut(JoinPoint point, Object retVal, CachePut cachePut) {
-        String key = getKey(cachePut.value(), point.toLongString(), cachePut.key(), point.getArgs());
+        String key = getKey(cachePut.value(), cachePut.keyGroup(), cachePut.key(), point.toLongString(), point.getArgs());
         redisService.set(key, ClassUtils.objectToByte(retVal), cachePut.timeout());
         return retVal;
     }
 
     @Before("@annotation(cacheEvict)")
     public void cacheEvict(JoinPoint point, CacheEvict cacheEvict) {
-        String frontKey = cacheEvict.value();
-        if(frontKey.isEmpty()){
-            frontKey = getFrontKey(point.toLongString());
+        String longString = clean(point.toLongString());
+        int t = longString.lastIndexOf("(");
+        int i = longString.lastIndexOf(".", t);
+        String classname = cacheEvict.value();
+        if(classname.isEmpty()){
+            classname = longString.substring(0, i);
         }
         if(cacheEvict.allEntries()){
-            Set<String> keys = redisService.keys(frontKey + "::*");
+            String key_ = classname.hashCode()+":*";
+            Set<String> keys = redisService.keys(key_);
             for (String key : keys) {
                 redisService.del(key);
             }
         } else {
-            String endKey;
-            if(cacheEvict.key().isEmpty()){
-                endKey = getEndKey(point.getArgs());
-            } else {
-                endKey = String.valueOf(parser.parseRaw(cacheEvict.key()).getValue().hashCode());
+            String method = cacheEvict.keyGroup();
+            if(method.isEmpty()){
+                method = longString.substring(i+1);
             }
-            String key = getKey(frontKey, endKey);
+            String _key = cacheEvict.key();
+            if(_key.isEmpty()){
+                _key = Arrays.toString(point.getArgs());
+            }
+            String key = syntheticKey(classname, method, _key);
             redisService.del(key);
         }
     }
 
-    private String getEndKey(Object[] args){
-        return String.valueOf(Arrays.hashCode(args));
-    }
-
-    private String getFrontKey(String longString){
-        return String.valueOf(longString.hashCode());
-    }
-
-    private String getKey(String frontKey, String endKey){
-        return frontKey+"::"+endKey;
-    }
-
-    private String getKey(String val, String longString, String key, Object[] args){
-        String frontKey = val;
-        String endKey;
-        if(frontKey.isEmpty()){
-            frontKey = getFrontKey(longString);
+    private String getKey(String classname, String method, String _key, String longString, Object[] obj){
+        longString = clean(longString);
+        int t = longString.lastIndexOf("(");
+        int i = longString.lastIndexOf(".", t);
+        if(classname.isEmpty()){
+            classname = longString.substring(0, i);
         }
-        if(key.isEmpty()){
-            endKey = getEndKey(args);
+        if(method.isEmpty()){
+            method = longString.substring(i+1);
+        }
+        if(_key.isEmpty()){
+            _key = Arrays.toString(obj);
         } else {
-            endKey = String.valueOf(parser.parseRaw(key).getValue().hashCode());
+            _key = String.valueOf(parser.parseRaw(_key).getValue());
         }
-        return getKey(frontKey, endKey);
+        return syntheticKey(classname, method, _key);
+    }
+
+    private String syntheticKey(String classname, String method, String _key){
+        return classname.hashCode()+":"+method.hashCode()+":"+_key.hashCode();
+    }
+
+    private String clean(String str){
+        String[] split = str.split(" ");
+        str = split[split.length-1];
+        return str.substring(0, str.length()-1);
     }
 }

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8" addBOMForNewFiles="with NO BOM">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/block-admin-interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/block-admin-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/block-admin-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-commom" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-confine" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-constant" charset="UTF-8" />
@@ -10,16 +13,12 @@
     <file url="file://$PROJECT_DIR$/block-file-interface" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-file-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-img-file-web" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/block-interface" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-pojo" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-redis-interface" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-redis-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-security-sso-commom" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/block-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-sso-interface" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-sso-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/block-sso-web" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/block-web" charset="UTF-8" />
-    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

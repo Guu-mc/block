@@ -20,9 +20,21 @@ block-sso-web:
 block-file-service:
     文件服务器
     dubbo:
-            qos.port: 22222
-            port: 20882
+        qos.port: 22222
+        port: 20882
     
 block-img-file-web:
     图片文件服务器-图片最大大小（50M）
     port: 9001
+
+
+block-admin-service:
+    后台管理api
+    dubbo:
+        qos.port: 22223
+        port: 20883
+            
+            
+block-admin-web:
+    后台管理api
+    port: 9002

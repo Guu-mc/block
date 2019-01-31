@@ -18,8 +18,10 @@
     <orderEntry type="library" name="Maven: com.mc.orange:mmsql:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-loader:2.1.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib:3.2.9" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm:7.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant:1.10.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.10.3" level="project" />
+    <orderEntry type="library" name="Maven: org.javassist:javassist:3.23.1-GA" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
   </component>
 </module>

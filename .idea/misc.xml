@@ -4,9 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/block-sso-service/pom.xml" />
-        <option value="$PROJECT_DIR$/block-redis-service/pom.xml" />
-        <option value="$PROJECT_DIR$/block-sso-web/pom.xml" />
+        <option value="$PROJECT_DIR$/block-admin-web/pom.xml" />
       </list>
     </option>
   </component>
